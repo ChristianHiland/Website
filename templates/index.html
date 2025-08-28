@@ -1,11 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        /* Text */
+        .BarTitle {color: white; text-align: center;}
+        .barmenu {background-color: gray;}
+        .BodyTitle {color: white;}
+        .BodyText {color: white; font-size: 18px; margin-left: 10px; margin-right: 10px;}
+        
+        /* Divs */
+        .BodyDiv {background-color: gray; align-items: center; text-align: center; display: flex; margin-top: 15px; justify-content: center;}
+        .BodyDiv1 {background-color: #1b385d; width: 20%; margin-top: 1%; margin-bottom: 1%; width: fit-content;}
+        .BodyDiv2 {background-color: #1b385d; width: 20%; margin-left: .5%; margin-top: 1%; margin-bottom: 1%; width: fit-content;}
+
+        /* Bar Nav */
+        .BarNavul {position: -webkit-sticky; position: sticky; list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;}
+        .BarNavli {float: left;}
+        .BarNavli a {display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
+        .BarNavli a:hover {background-color: #111;}
+        /* Active/Current Page */
+        .active {background-color: darkblue;}
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LunProjects</title>
 </head>
 <body>
+    <!-- Bar Menu -->
+    <div class="barmenu">
+        <ul class="BarNavul">
+            <h1 class="BarTitle">Lunbin's Web</h1>
+            <hr class="DivHR">
+            <li class="BarNavli"><a href="{{url_for('index')}}" class="active">Home</a></li>
+            <li class="BarNavli"><a href="{{url_for('projects')}}">Projects</a></li>
+            <li class="BarNavli" style="float:right"><a href="{{url_for('howlinghaven')}}">Howling Haven</a></li>
+            <li class="BarNavli"><a href="{{url_for('links')}}">Links</a></li>
+            <li class="BarNavli"><a id="LoginID" href="{{url_for('userlogin')}}">Login</a></li>
+            <li class="BarNavli"><a href="{{url_for('lookprofile')}}">Profiles</a></li>
+            <li class="BarNavli"><a href="{{url_for('about')}}">About</a></li>
+        </ul>    
+    </div>
     <h1>This webpage is in MAJOR DEVLOPMENT! Please come back later, tomrowow</h1>
 </body>
 </html>
