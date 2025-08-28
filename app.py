@@ -12,3 +12,5 @@ def home_page():
 def project_page(projectID):
     return f"<h1>{projectID}</h1>"
 
+if __name__ == "__main__":
+    app.run()
