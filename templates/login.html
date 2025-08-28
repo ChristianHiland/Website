@@ -20,10 +20,13 @@
         .BarNavli a:hover {background-color: #111;}
         /* Active/Current Page */
         .active {background-color: darkblue;}
+        /* Extras */
+        .centered {text-align: center; align-content: center; align-self: center; background-color: #333; padding-top: 10px;}
+        .white-text {color: white; padding-left: 20px; padding-right: 20px;}
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LunProjects</title>
+    <title>Login -- lunproject.net</title>
 </head>
 <body>
     <!-- Bar Menu -->
@@ -31,15 +34,23 @@
         <ul class="BarNavul">
             <h1 class="BarTitle">lunprojects.net</h1>
             <hr class="DivHR">
-            <li class="BarNavli"><a href="{{url_for('index')}}" class="active">Home</a></li>
+            <li class="BarNavli"><a href="{{url_for('index')}}">Home</a></li>
             <li class="BarNavli"><a href="#">Projects</a></li>
             <li class="BarNavli" style="float:right"><a href="#">Howling Haven</a></li>
             <li class="BarNavli"><a href="#">Links</a></li>
-            <li class="BarNavli"><a id="LoginID" href="{{url_for('login')}}">Login</a></li>
+            <li class="BarNavli"><a id="LoginID" href="#" class="active">Login</a></li>
             <li class="BarNavli"><a href="#">Profiles</a></li>
             <li class="BarNavli"><a href="#">About</a></li>
         </ul>    
     </div>
-    <h1>This webpage is in MAJOR DEVLOPMENT! Please come back later, tomrowow</h1>
+
+    <!-- Main Div -->
+    <div class="BodyDiv">
+        <div class="BodyDiv2">
+            <h2 class="white-text">Welcome, Please Login</h2>
+            <textarea></textarea>
+            <button>Login</button>
+        </div>
+    </div>
 </body>
 </html>

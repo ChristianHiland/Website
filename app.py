@@ -12,5 +12,12 @@ def index():
 def projects(projectID):
     return f"<h1>{projectID}</h1>"
 
+# Login Page
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
+
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
