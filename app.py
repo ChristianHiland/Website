@@ -52,7 +52,6 @@ def WriteMessage(content, sender, data):
     with open("src/data/lobby.json", "w") as file:
         data["messages"][f"{sender}{len(data["messages"]) + 1}"] = {"content": content, "sender": sender, "datetime": "idkyet"}
         json.dump(data, file, indent=4)
-        
 
 @app.route('/lobby_send', methods=['POST'])
 def lobby_send():
@@ -60,22 +59,12 @@ def lobby_send():
     message = data.get("message")
     sender = data.get("sender")
     # Add Content to lobby list
-    data = None
+    data2 = None
     with open("src/data/lobby.json", "r") as file:
-        data = json.load(file)
+        data2 = json.load(file)
 
-    WriteMessage(message, sender, data)
+    WriteMessage(message, sender, data2)
     return jsonify({"Return": "Ok"})
-
-@app.route('/lobby_new_get')
-def lobby_new_get():
-    data = None
-    with open("src/data/lobby.json", "r") as file:
-        data = json.load(file)
-        print(f"Data: {data}")
-        return jsonify(data)
-    
-    return jsonify(data)
 
 @app.route('/lobby_chatlog')
 def lobby_chatlog():
@@ -84,7 +73,31 @@ def lobby_chatlog():
         print(f"data: {data["messages"]}")
         return jsonify(data)
 
+#
+# Profiles Events
+#
 
+@app.route('/profile_create', methods=['POST'])
+def profile_create():
+    data = request.get_json()
+    # Get Name, Tags
+    name = data.get("Username")
+    tags = data.get("Tags")
+    with open("src/data/users.json", "r") as file:
+        data2 = json.load(file)
+        if name not in data2["Users"]:
+            data2[name] = {"Profile": {"Display": name, "Tags": tags}}
+            WriteToJson("src/data/users.json", data2)
+            return jsonify({"Request": "Ok"})
+        else:
+            return jsonify({"Request": "Taken", "Data": data2[name]})
+
+
+
+# Helpers
+def WriteToJson(path, data):
+    with open(path, "w") as file:
+        json.dump(data, file, indent=4)
 
 if __name__ == "__main__":
     app.run(debug=True)
