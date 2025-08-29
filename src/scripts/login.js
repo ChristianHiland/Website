@@ -15,12 +15,13 @@ function login() {
         },
         body: JSON.stringify(Data)
     })
-    .then(response => response.json())
+    .then(response => {
+        
+    })
     .then(result => {
         console.log("Login on as " + Data.username);
         status_text.textContent = "Welcome " + Data.username + "!";
-        create_profile(Data.username)
-        window.location.href = "/lobby";
+        create_profile(Data.username);
     })
 }
 
@@ -39,8 +40,11 @@ function create_profile(username) {
     })
     .then(response => response.json())
     .then(result => {
-        if (result.Request == "Taken") { status_text.textContent = "Username taken! Logging in..."}
+        if (result.Request == "Taken") { status_text.textContent = "Username taken! Logging in..."; }
+        else if (result.Request == "Created") { status_text.textContent = "Profile Created! Logging in..."; }
+        else if (result.Request == "Error") { status_text.textContent = "Error creating profile! Logging in..."; }
     })
+    window.location.href = "/lobby";
 }
 
 if (localStorage.getItem("username") != null) {
@@ -48,3 +52,4 @@ if (localStorage.getItem("username") != null) {
 } else {
     status_text.textContent = "";
 }
+

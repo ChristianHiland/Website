@@ -1,0 +1,8 @@
+{
+    "Paths": {
+        "Data": {
+            "Lobby": "src/data/lobby.json",
+            "Users": "src/data/users.json"
+        }
+    }
+}
