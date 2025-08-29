@@ -15,15 +15,36 @@ function login() {
         },
         body: JSON.stringify(Data)
     })
-    .then(response => {
-        if (!response.ok) {throw new Error('Network response was not ok');}
-    })
+    .then(response => response.json())
     .then(result => {
         console.log("Login on as " + Data.username);
         status_text.textContent = "Welcome " + Data.username + "!";
+        create_profile(Data.username)
+        window.location.href = "/lobby";
     })
 }
 
-if (localStorage.getItem("username") != "") {
-    status_text.textContent = "Your already logged-in!"
+function create_profile(username) {
+    const data = {
+        Username: username,
+        Tags: ["None"]
+    }
+    // Process Fetch
+    fetch('/profile_create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.Request == "Taken") { status_text.textContent = "Username taken! Logging in..."}
+    })
+}
+
+if (localStorage.getItem("username") != null) {
+    status_text.textContent = "Your already logged-in! as " + localStorage.getItem("username");
+} else {
+    status_text.textContent = "";
 }
