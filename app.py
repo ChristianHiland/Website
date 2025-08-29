@@ -79,21 +79,30 @@ def lobby_chatlog():
 # Profiles Events
 #
 
-@app.route('/profile_create', methods=['POST'])
-def profile_create():
-    data = request.get_json()
-    # Get Name, Tags
-    name = data.get("Username")
-    tags = data.get("Tags")
-    with open(ServerConfig["Paths"]["Data"]["Users"], "r") as file:
-        data = json.load(file)
-        if name not in data["Users"]:
-            data["Users"][name] = {"Profile": {"Display": name, "Tags": tags}}
-            WriteToJson(ServerConfig["Paths"]["Data"]["Users"], data)
-            return jsonify({"Request": "Ok"})
-        else:
-            print("Taken Name")
-            return jsonify({"Request": "Taken", "Data": data["Users"][name]})
+@app.route('/profile_create/<username>/<tags>', methods=['POST'])
+def profile_create(username, tags):
+    if request.method == 'POST':
+        data = request.get_json()
+        # Get Name, Tags
+        name = data.get("Username")
+        tags = data.get("Tags")
+        with open(ServerConfig["Paths"]["Data"]["Users"], "r") as file:
+            data = json.load(file)
+            if name not in data["Users"]:
+                data["Users"][name] = {"Profile": {"Display": name, "Tags": tags}}
+                WriteToJson(ServerConfig["Paths"]["Data"]["Users"], data)
+                return jsonify({"Request": "Ok"})
+            else:
+                return jsonify({"Request": "Taken", "Data": data["Users"][name]})
+    else:
+        with open(ServerConfig["Paths"]["Data"]["Users"], "r") as file:
+            data = json.load(file)
+            if name not in data["Users"]:
+                data["Users"][name] = {"Profile": {"Display": name, "Tags": tags}}
+                WriteToJson(ServerConfig["Paths"]["Data"]["Users"], data)
+                return jsonify({"Request": "Ok"})
+            else:
+                return jsonify({"Request": "Taken", "Data": data["Users"][name]})
 
 @app.route('/profile_request/<username>', methods=['POST', 'GET'])
 def profile_request(username):
