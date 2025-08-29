@@ -50,7 +50,7 @@ def login_request():
 
 def WriteMessage(content, sender, data):
     with open("src/data/lobby.json", "w") as file:
-        data["messages"][f"{sender}{len(data["messages"]) + 1}"] = {"content": content, "sender": sender}
+        data["messages"][f"{sender}{len(data["messages"]) + 1}"] = {"content": content, "sender": sender, "datetime": "idkyet"}
         json.dump(data, file, indent=4)
         
 
@@ -65,7 +65,7 @@ def lobby_send():
         data = json.load(file)
 
     WriteMessage(message, sender, data)
-    return "Ok"
+    return jsonify({"Return": "Ok"})
 
 @app.route('/lobby_new_get')
 def lobby_new_get():
@@ -73,8 +73,16 @@ def lobby_new_get():
     with open("src/data/lobby.json", "r") as file:
         data = json.load(file)
         print(f"Data: {data}")
+        return jsonify(data)
     
     return jsonify(data)
+
+@app.route('/lobby_chatlog')
+def lobby_chatlog():
+    with open("src/data/lobby.json", "r") as file:
+        data = json.load(file)
+        print(f"data: {data["messages"]}")
+        return jsonify(data)
 
 
 

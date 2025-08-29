@@ -1,12 +1,8 @@
 {
     "messages": {
         "0": {
-            "content": "content",
-            "sender": "sender"
-        },
-        "None2": {
-            "content": "lee",
-            "sender": null
+            "content": "Keep in mind that for some reason usernames are sorted by alphabet. Don't ask me how.",
+            "sender": "Server"
         }
     }
 }

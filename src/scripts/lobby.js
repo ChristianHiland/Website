@@ -1,9 +1,9 @@
 const message_textfield = document.getElementById("message");
-const message_areafield = document.getElementById("message-area");
+const dataOutputTextArea = document.getElementById("message-area");
 
 function Lobby_send() {
     const Data = {
-        username: localStorage.getItem("username"),
+        sender: localStorage.getItem("username"),
         message: message_textfield.value
     }
 
@@ -20,15 +20,30 @@ function Lobby_send() {
 }
 
 function Lobby_Update() {
-    fetch('/lobby_new_get')
-    .then(response => {
-        if (!response.ok) {throw new Error('Network response was not ok');}
-    })
+    fetch('/lobby_chatlog')
+    .then(response => response.json())
     .then(result => {
-        message_areafield.value = result;
-        console.log(result);
+        displayDataInTextArea(result.messages);
     })
 }
 
-setInterval(Lobby_Update, 3000);
-console.log(localStorage.getItem("username") + " Username")
+function displayDataInTextArea(messagesArray) {
+    let formattedText = '';
+
+    // Loop through the provided array
+    for (var key in messagesArray) {
+        if (messagesArray.hasOwnProperty(key)) {
+            var val = messagesArray[key];
+            formattedText += val["sender"] + ": " + val["content"] + "\n";
+        }
+    }
+
+    // Set the textarea's value
+    dataOutputTextArea.value = formattedText;
+}
+setInterval(Lobby_Update, 1000);
+
+if (localStorage.getItem("username") == "") {
+    message_textfield.value = "Please Login."
+    localStorage.setItem("username", "GUEST")
+}
