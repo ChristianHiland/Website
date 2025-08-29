@@ -8,7 +8,6 @@ app = Flask(__name__, template_folder='templates', static_folder='src', static_u
 people_login = []
 lobby_messages = {}             # Format: "index": {"content": "hello world!", "sender": "LeeLunbin", "DateTime": "2025-08-28 19:37:36"}
 lobby_message_count = 1
-new_message = {}
 
 # Default 'Home' Page
 @app.route('/')
