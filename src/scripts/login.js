@@ -43,8 +43,8 @@ function create_profile(username) {
         if (result.Request == "Taken") { status_text.textContent = "Username taken! Logging in..."; }
         else if (result.Request == "Created") { status_text.textContent = "Profile Created! Logging in..."; }
         else if (result.Request == "Error") { status_text.textContent = "Error creating profile! Logging in..."; }
+        window.location.href = "http://lunprojects.net/lobby";
     })
-    window.location.href = "http://lunprojects.net/lobby";
 }
 
 if (localStorage.getItem("username") != null) {

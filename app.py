@@ -79,8 +79,8 @@ def lobby_chatlog():
 # Profiles Events
 #
 
-@app.route('/profile_create/<username>/<tags>', methods=['POST'])
-def profile_create(username, tags):
+@app.route('/profile_create/<name>/<tags>', methods=['POST', 'GET'])
+def profile_create(name, tags):
     if request.method == 'POST':
         data = request.get_json()
         # Get Name, Tags
