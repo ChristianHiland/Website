@@ -1,0 +1,12 @@
+{
+    "messages": {
+        "0": {
+            "content": "content",
+            "sender": "sender"
+        },
+        "None2": {
+            "content": "lee",
+            "sender": null
+        }
+    }
+}
