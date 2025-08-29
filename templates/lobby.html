@@ -21,7 +21,7 @@
         /* Active/Current Page */
         .active {background-color: darkblue;}
         /* Extras */
-        .centered {text-align: center; align-content: center; align-self: center; background-color: #333; padding-top: 10px;}
+        .centered {text-align: center; align-content: center; align-self: center; padding-top: 10px;}
         .white-text {color: white; padding-left: 20px; padding-right: 20px;}
         .messagecontainer {align-self: center; align-items: center; text-align: center;}
     </style>
@@ -39,7 +39,7 @@
             <li class="BarNavli"><a href="#">Projects</a></li>
             <li class="BarNavli" style="float:right"><a href="#">Howling Haven</a></li>
             <li class="BarNavli"><a href="#">Links</a></li>
-            <li class="BarNavli"><a id="LoginID" href="#" class="active">Login</a></li>
+            <li class="BarNavli"><a id="LoginID" href="{{url_for('login')}}" class="active">Login</a></li>
             <li class="BarNavli"><a href="#">Profiles</a></li>
             <li class="BarNavli"><a href="{{url_for('lobby')}}">Lobby</a></li>
             <li class="BarNavli"><a href="#">About</a></li>
@@ -52,9 +52,7 @@
             <h2 class="white-text">Welcome to the Lobby!</h2>
             <!-- Username Input -->
             <div class="BodyDiv2">
-                <label for="username" class="block text-sm font-medium text-gray-700 white-text">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                <input type="text" id="message" name="message" placeholder="Hello!" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                <input type="text" id="message" name="message" placeholder="Hello!" class="centered" required>
             </div>
             
             <!-- Submit Button -->

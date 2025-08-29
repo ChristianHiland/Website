@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import json
 
 app = Flask(__name__, template_folder='templates', static_folder='src', static_url_path='/src')
@@ -29,17 +29,20 @@ def lobby():
 # Login Events
 #
 
-@app.route('/login_request', methods=['POST'])
+@app.route('/login_request', methods=['POST',"GET"])
 def login_request():
-    data = request.get_json()
-    username = data.get("username")
+    
+    if request.method == "POST":
+        data = request.get_json()
+        username = data.get("username")
 
-    if username != "":
-        people_login.append(username)
-        print(f"{username} has login on!")
-        return "Shit"
-    else:
-        return "double shit"
+        if username != "":
+            people_login.append(username)
+            print(f"{username} has login on!")
+        else:
+            return "double shit"
+        
+        return redirect(url_for("lobby"))
 
 #
 # Lobby Events
@@ -64,13 +67,12 @@ def lobby_send():
     WriteMessage(message, sender, data)
     return "Ok"
 
-@app.route('/lobby_new_get', methods=["POST"])
+@app.route('/lobby_new_get')
 def lobby_new_get():
-    data2 = request.get_json()
     data = None
     with open("src/data/lobby.json", "r") as file:
         data = json.load(file)
-        print(f"Data: {data}{data2}")
+        print(f"Data: {data}")
     
     return jsonify(data)
 
