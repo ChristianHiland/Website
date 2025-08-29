@@ -57,6 +57,7 @@ function request_profile(username) {
     .then(response => response.json())
     .then(result => {
         console.log("Profile: " + result)
+        return result;
     })
 }
 

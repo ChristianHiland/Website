@@ -86,13 +86,14 @@ def profile_create():
     name = data.get("Username")
     tags = data.get("Tags")
     with open(ServerConfig["Paths"]["Data"]["Users"], "r") as file:
-        data2 = json.load(file)
-        if name not in data2["Users"]:
-            data2[name] = {"Profile": {"Display": name, "Tags": tags}}
-            WriteToJson(ServerConfig["Paths"]["Data"]["Users"], data2)
+        data = json.load(file)
+        if name not in data["Users"]:
+            data["Users"][name] = {"Profile": {"Display": name, "Tags": tags}}
+            WriteToJson(ServerConfig["Paths"]["Data"]["Users"], data)
             return jsonify({"Request": "Ok"})
         else:
-            return jsonify({"Request": "Taken", "Data": data2[name]})
+            print("Taken Name")
+            return jsonify({"Request": "Taken", "Data": data["Users"][name]})
 
 @app.route('/profile_request/<username>', methods=['POST', 'GET'])
 def profile_request(username):
