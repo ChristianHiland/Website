@@ -19,8 +19,7 @@ function login() {
     .then(result => {
         console.log("Login on as " + Data.username);
         status_text.textContent = "Welcome " + Data.username + "!";
-        create_profile(Data.username)
-        window.location.href = "/lobby";
+        create_profile(Data.username);
     })
 }
 
@@ -41,6 +40,7 @@ function create_profile(username) {
     .then(result => {
         if (result.Request == "Taken") { status_text.textContent = "Username taken! Logging in..."}
     })
+    window.location.href = "/lobby";
 }
 
 if (localStorage.getItem("username") != null) {

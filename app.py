@@ -91,7 +91,14 @@ def profile_create():
         else:
             return jsonify({"Request": "Taken", "Data": data2[name]})
 
-
+@app.route('/profile_request/<username>', methods=['GET'])
+def profile_request(username):
+    with open("src/data/users.json", "r") as file:
+        data = json.load(file)
+        if username in data["Users"]:
+            return jsonify(data["Users"][username])
+        else:
+            return jsonify({"Request": "Failed"})
 
 # Helpers
 def WriteToJson(path, data):
