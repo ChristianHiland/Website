@@ -3,11 +3,6 @@
         "0": {
             "content": "Keep in mind that for some reason usernames are sorted by alphabet. Don't ask me how.",
             "sender": "Server"
-        },
-        "GUEST2": {
-            "content": "PleasHelloe Login.",
-            "sender": "GUEST",
-            "datetime": "idkyet"
         }
     }
 }
