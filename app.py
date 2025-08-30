@@ -4,6 +4,12 @@ import json
 app = Flask(__name__, template_folder='templates', static_folder='src', static_url_path='/src')
 
 
+# Server Config
+ServerConfig = None
+with open("config.json", "r") as config:
+    ServerConfig = json.load(config)
+
+
 # Runtime Vars
 people_login = []
 lobby_messages = {}             # Format: "index": {"content": "hello world!", "sender": "LeeLunbin", "DateTime": "2025-08-28 19:37:36"}
@@ -30,7 +36,6 @@ def lobby():
 
 @app.route('/login_request', methods=['POST',"GET"])
 def login_request():
-    
     if request.method == "POST":
         data = request.get_json()
         username = data.get("username")
@@ -40,7 +45,6 @@ def login_request():
             print(f"{username} has login on!")
         else:
             return "double shit"
-        
         return redirect(url_for("lobby"))
 
 #
@@ -69,28 +73,59 @@ def lobby_send():
 def lobby_chatlog():
     with open("src/data/lobby.json", "r") as file:
         data = json.load(file)
-        print(f"data: {data["messages"]}")
         return jsonify(data)
 
 #
 # Profiles Events
 #
 
-@app.route('/profile_create', methods=['POST'])
-def profile_create():
-    data = request.get_json()
-    # Get Name, Tags
-    name = data.get("Username")
-    tags = data.get("Tags")
-    with open("src/data/users.json", "r") as file:
-        data2 = json.load(file)
-        if name not in data2["Users"]:
-            data2[name] = {"Profile": {"Display": name, "Tags": tags}}
-            WriteToJson("src/data/users.json", data2)
-            return jsonify({"Request": "Ok"})
-        else:
-            return jsonify({"Request": "Taken", "Data": data2[name]})
+@app.route('/profile_create/<name>/<tags>', methods=['POST', 'GET'])
+def profile_create(name, tags):
+    if request.method == 'POST':
+        data = request.get_json()
+        # Get Name, Tags
+        name = data.get("Username")
+        tags = data.get("Tags")
+        with open(ServerConfig["Paths"]["Data"]["Users"], "r") as file:
+            data = json.load(file)
+            if name not in data["Users"]:
+                data["Users"][name] = {"Profile": {"Display": name, "Tags": tags}}
+                WriteToJson(ServerConfig["Paths"]["Data"]["Users"], data)
+                return jsonify({"Request": "Ok"})
+            else:
+                return jsonify({"Request": "Taken", "Data": data["Users"][name]})
+    else:
+        with open(ServerConfig["Paths"]["Data"]["Users"], "r") as file:
+            data = json.load(file)
+            if name not in data["Users"]:
+                data["Users"][name] = {"Profile": {"Display": name, "Tags": tags}}
+                WriteToJson(ServerConfig["Paths"]["Data"]["Users"], data)
+                return jsonify({"Request": "Ok"})
+            else:
+                return jsonify({"Request": "Taken", "Data": data["Users"][name]})
 
+@app.route('/profile_request/<username>', methods=['POST', 'GET'])
+def profile_request(username):
+    if request.method == 'POST':
+        data = request.get_json()
+        username = data.get("Username")
+        with open(ServerConfig["Paths"]["Data"]["Users"], "r") as file:
+            userData = json.load(file)
+
+            for profile in userData["Users"]:
+                if username in profile:
+                    return jsonify(userData["Users"][username])
+                else:
+                    return jsonify({"Request": "Error"})
+    else:
+        with open(ServerConfig["Paths"]["Data"]["Users"], "r") as file:
+            userData = json.load(file)
+
+            for profile in userData["Users"]:
+                if username in profile:
+                    return jsonify(userData["Users"][username])
+                else:
+                    return jsonify({"Request": "Error"})
 @app.route('/profile_request/<username>', methods=['GET'])
 def profile_request(username):
     with open("src/data/users.json", "r") as file:
@@ -104,6 +139,10 @@ def profile_request(username):
 def WriteToJson(path, data):
     with open(path, "w") as file:
         json.dump(data, file, indent=4)
+
+def ReadFromJson(path):
+    with open(path, "r") as file:
+        return json.load(file)
 
 if __name__ == "__main__":
     app.run(debug=True)
