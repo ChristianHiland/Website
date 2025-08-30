@@ -30,7 +30,7 @@ def lobby():
 
 # Profiles Page
 @app.route('/profiles')
-def profile():
+def profiles():
     return render_template('profiles.html')
 
 #
