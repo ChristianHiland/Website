@@ -9,11 +9,9 @@ ServerConfig = None
 with open("config.json", "r") as config:
     ServerConfig = json.load(config)
 
-
 # Runtime Vars
 people_login = []
 lobby_messages = {}             # Format: "index": {"content": "hello world!", "sender": "LeeLunbin", "DateTime": "2025-08-28 19:37:36"}
-lobby_message_count = 1
 
 # Default 'Home' Page
 @app.route('/')
@@ -29,6 +27,11 @@ def login():
 @app.route('/lobby')
 def lobby():
     return render_template('lobby.html')
+
+# Profiles Page
+@app.route('/profiles')
+def profile():
+    return render_template('profiles.html')
 
 #
 # Login Events
@@ -79,30 +82,20 @@ def lobby_chatlog():
 # Profiles Events
 #
 
-@app.route('/profile_create/<name>/<tags>', methods=['POST', 'GET'])
-def profile_create(name, tags):
-    if request.method == 'POST':
-        data = request.get_json()
-        # Get Name, Tags
-        name = data.get("Username")
-        tags = data.get("Tags")
-        with open(ServerConfig["Paths"]["Data"]["Users"], "r") as file:
-            data = json.load(file)
-            if name not in data["Users"]:
-                data["Users"][name] = {"Profile": {"Display": name, "Tags": tags}}
-                WriteToJson(ServerConfig["Paths"]["Data"]["Users"], data)
-                return jsonify({"Request": "Ok"})
-            else:
-                return jsonify({"Request": "Taken", "Data": data["Users"][name]})
-    else:
-        with open(ServerConfig["Paths"]["Data"]["Users"], "r") as file:
-            data = json.load(file)
-            if name not in data["Users"]:
-                data["Users"][name] = {"Profile": {"Display": name, "Tags": tags}}
-                WriteToJson(ServerConfig["Paths"]["Data"]["Users"], data)
-                return jsonify({"Request": "Ok"})
-            else:
-                return jsonify({"Request": "Taken", "Data": data["Users"][name]})
+@app.route('/profile_create', methods=['POST'])
+def profile_create():
+    data = request.get_json()
+    # Get Name, Tags
+    name = data.get("Username")
+    tags = data.get("Tags")
+    with open(ServerConfig["Paths"]["Data"]["Users"], "r") as file:
+        data = json.load(file)
+        if name not in data["Users"]:
+            data["Users"][name] = {"Profile": {"Display": name, "Tags": tags}}
+            WriteToJson(ServerConfig["Paths"]["Data"]["Users"], data)
+            return jsonify({"Request": "Ok"})
+        else:
+            return jsonify({"Request": "Taken", "Data": data["Users"][name]})
 
 @app.route('/profile_request/<username>', methods=['GET'])
 def profile_request(username):

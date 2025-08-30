@@ -11,7 +11,7 @@
         /* Divs */
         .BodyDiv {background-color: gray; align-items: center; text-align: center; display: flex; margin-top: 15px; justify-content: center;}
         .BodyDiv1 {background-color: #1b385d; width: 20%; margin-top: 1%; margin-bottom: 1%; width: fit-content;}
-        .BodyDiv2 {background-color: #1b385d; width: 20%; margin-left: .5%; margin-top: 1%; margin-bottom: 1%; width: fit-content;}
+        .BodyDiv2 {background-color: #1b385d; width: 20%; margin-left: .5%; margin-top: 1%; margin-bottom: 1%; width: 60%; justify-content: center; align-items: center;}
 
         /* Bar Nav */
         .BarNavul {position: -webkit-sticky; position: sticky; list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;}
@@ -21,13 +21,13 @@
         /* Active/Current Page */
         .active {background-color: darkblue;}
         /* Extras */
-        .centered {text-align: center; align-content: center; align-self: center; background-color: #333; padding-top: 10px;}
+        .centered {text-align: center; align-content: center; align-self: center; padding-top: 10px;}
         .white-text {color: white; padding-left: 20px; padding-right: 20px;}
+        .messagecontainer {align-self: center; align-items: center; text-align: center;}
     </style>
     <meta charset="UTF-8">
-    <script src="/src/scripts/login.js" async></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login -- lunproject.net</title>
+    <title>Profile -- lunproject.net</title>
 </head>
 <body>
     <!-- Bar Menu -->
@@ -39,8 +39,8 @@
             <li class="BarNavli"><a href="#">Projects</a></li>
             <li class="BarNavli" style="float:right"><a href="#">Howling Haven</a></li>
             <li class="BarNavli"><a href="#">Links</a></li>
-            <li class="BarNavli"><a id="LoginID" href="#" class="active">Login</a></li>
-            <li class="BarNavli"><a href="{{url_for('profiles')}}">Profiles</a></li>
+            <li class="BarNavli"><a id="LoginID" href="{{url_for('login')}}">Login</a></li>
+            <li class="BarNavli"><a href="{{url_for('profiles')}}" class="active">Profiles</a></li>
             <li class="BarNavli"><a href="{{url_for('lobby')}}">Lobby</a></li>
             <li class="BarNavli"><a href="#">About</a></li>
         </ul>    
@@ -49,18 +49,8 @@
     <!-- Main Div -->
     <div class="BodyDiv">
         <div class="BodyDiv2">
-            <h2 class="white-text">Welcome, Please Login</h2>
-            <!-- Username Input -->
-            <div>
-                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-            </div>
-            
-            <!-- Submit Button -->
-            <div class="mt-6">
-                <button type="submit" onclick="login()" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Log In</button>
-                <h2 id="status_text"></h2>
-            </div>
+            <h2 class="white-text">Work In Progress!</h2>
+            <h2>class="white-text">This Webpage is soon to come!</h2>
         </div>
     </div>
 </body>
