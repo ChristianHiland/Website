@@ -41,6 +41,10 @@ def about():
 def projects():
     return render_template('projects.html')
 
+@app.route('/links')
+def links():
+    return render_template('links.html')
+
 #
 # Login Events
 #
