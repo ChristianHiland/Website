@@ -33,19 +33,18 @@
             <h1 class="BarTitle">lunprojects.net</h1>
             <hr class="DivHR">
             <li class="BarNavli"><a href="{{url_for('index')}}" class="active">Home</a></li>
-            <li class="BarNavli"><a href="#">Projects</a></li>
+            <li class="BarNavli"><a href="{{url_for('projects')}}">Projects</a></li>
             <li class="BarNavli" style="float:right"><a href="#">Howling Haven</a></li>
-            <li class="BarNavli"><a href="#">Links</a></li>
+            <li class="BarNavli"><a href="{{url_for('links')}}">Links</a></li>
             <li class="BarNavli"><a id="LoginID" href="{{url_for('login')}}">Login</a></li>
-            <li class="BarNavli"><a href="#">Profiles</a></li>
+            <li class="BarNavli"><a href="{{url_for('profiles')}}">Profiles</a></li>
             <li class="BarNavli"><a href="{{url_for('lobby')}}">Lobby</a></li>
-            <li class="BarNavli"><a href="#">About</a></li>
+            <li class="BarNavli"><a href="{{url_for('about')}}">About</a></li>
         </ul>    
     </div>
-    <h1>This webpage is in MAJOR DEVLOPMENT! Please come back later, tomorrow.</h1>
     <!-- Main Body Div -->
     <div class="BodyDiv">
-        <img class="element-to-hide" id="LUNBIN_IMG" src="src/images/leelunbin.png" style="width:300px;height:400px;margin-right: 10px;">
+        <img class="element-to-hide" id="LUNBIN_IMG" src="src/images/leelunbin.png" style="width:300px;height:400px;margin-right: 10px;" alt="Lunbin's fursona draw with a stray kids t-shirt (K-Pop Band), and is wearing head phones.">
         <div class="BodyDiv1">
             <h1 class="BodyTitle">Welcome</h1>
             <h2 class="BodyText">Hello, welcome to LunProject.net! I'm so happy that you made it here! We normally don't get many people, nor especially furs here. Hope you like to stay and explore the webpages and what this site has to offer!</h2>
@@ -87,6 +86,7 @@
             <h1 class="BodyTitle">Todo:</h1>
             <br>
             <ul class="ChangeUl">
+                <li class="ChangeLi">Major: Fix Projects page with navbar broken links</li>
                 <li class="ChangeLi">Fixed Server (Even More)</li>
                 <li class="ChangeLi">Fix Lobby Messaging</li>
                 <li class="ChangeLi">Making a Good Backend</li>

@@ -27,6 +27,14 @@ function Lobby_Update() {
     })
 }
 
+function Request_Profile(username) {
+    fetch('/profile_request/' + username)
+    .then(response => response.json())
+    .then(result => {
+        console.log(result);
+    })
+}
+
 function displayDataInTextArea(messagesArray) {
     let formattedText = '';
 
@@ -67,4 +75,6 @@ setInterval(Lobby_Update, 1000);
 if (localStorage.getItem("username") == null) {
     message_textfield.value = "Please Login."
     localStorage.setItem("username", "GUEST")
+} else {
+    Request_Profile(localStorage.getItem("username"));
 }

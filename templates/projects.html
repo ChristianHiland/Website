@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Needs To Be loaded First -->
+    <style>
+        /* Text */
+        .BarTitle {color: white; text-align: center;}
+        .barmenu {background-color: gray;}
+        .BodyTitle {color: white;}
+        .BodyText {color: white; font-size: 18px; margin-left: 10px; margin-right: 10px;}
+        
+        /* Divs */
+        .BodyDiv {background-color: gray; align-items: center; text-align: center; display: flex; margin-top: 15px; justify-content: center;}
+        .BodyDiv1 {background-color: #1b385d; width: 20%; margin-top: 1%; margin-bottom: 1%;}
+        .BodyDiv2 {background-color: #1b385d; width: 20%; margin-left: .5%; margin-top: 1%; margin-bottom: 1%;}
+
+        /* Bar Nav */
+        .BarNavul {position: -webkit-sticky; position: sticky; list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;}
+        .BarNavli {float: left;}
+        .BarNavli a {display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
+        .BarNavli a:hover {background-color: #111;}
+        /* Active/Current Page */
+        .active {background-color: darkblue;}
+    </style>
+    <link rel="preload" href="/src/styles/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunbin's Projects</title>
+</head>
+<body>
+    <!-- Bar Menu -->
+    <div class="barmenu">
+        <ul class="BarNavul">
+            <h1 class="BarTitle">lunprojects.net</h1>
+            <hr class="DivHR">
+            <li class="BarNavli"><a href="{{url_for('index')}}" class="active">Home</a></li>
+            <li class="BarNavli"><a href="{{url_for('projects')}}">Projects</a></li>
+            <li class="BarNavli" style="float:right"><a href="#">Howling Haven</a></li>
+            <li class="BarNavli"><a href="{{url_for('links')}}">Links</a></li>
+            <li class="BarNavli"><a id="LoginID" href="{{url_for('login')}}">Login</a></li>
+            <li class="BarNavli"><a href="{{url_for('profiles')}}">Profiles</a></li>
+            <li class="BarNavli"><a href="{{url_for('lobby')}}">Lobby</a></li>
+            <li class="BarNavli"><a href="{{url_for('about')}}">About</a></li>
+        </ul>  
+    </div>
+    <!-- Main Body Div -->
+    <div class="BodyDivOnly">
+        <div class="BodyDiv1Only">
+            <h1 class="BodyTitle">Projects</h1>
+            <h2 class="BodyText">Here are projects that Lunbin has worked on! Some are a W.I.P (Work in progress) and may not be worked on for another year, but that's ADHD talking.</h2>
+        </div>
+        <hr class="DivHR2">
+        <div class="BodyShowCase">
+            <div class="projects">
+                <div style="width:150px;height:155px;margin-left:20px;">
+                    <a href="https://github.com/ChristianHiland/PyKorean"><img src="../src/images/PyKorean.png" style="width:80px;height:80px;margin-top:6px;"></a>
+                    <h1 style="font-size:16px;color:white; margin-bottom: -14px;">(Minor WIP)</h1>
+                    <h1 class="ShowCaseTitle">PyKorean</h1>
+                </div>
+                <div style="width:150px;height:155px;margin-left:10px;">
+                    <a href="https://github.com/ChristianHiland/YoutubeDownloader"><img src="../src/images/GitHub-Logo.png" style="width:150px;height:80px;margin-top:6px;"></a>
+                    <h1 style="font-size:16px;color:white; margin-bottom: -14px;">(Major WIP)</h1>
+                    <h1 class="ShowCaseTitle">Video Download</h1>
+                </div>
+                <div style="width:150px;height:155px;margin-left:10px;">
+                    <a href="https://github.com/ChristianHiland/HTML-Quiz"><img src="../src/images/GitHub-Logo.png" style="width:150px;height:80px;margin-top:6px;"></a>
+                    <h1 style="font-size:16px;color:white; margin-bottom: -14px;">(Minor WIP)</h1>
+                    <h1 class="ShowCaseTitle">HTML Quiz</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
