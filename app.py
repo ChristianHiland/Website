@@ -60,10 +60,16 @@ def projects():
 def links():
     return render_template('links.html')
 
+# Howling Haven Page
+@app.route('/howlinghaven')
+def howlinghaven():
+    return render_template('howlinghaven.html')
+
 # Messages Debug Page
 @app.route('/messages_loader')
 def messages_loader():
     return render_template('messageLoader.html')
+
 
 #
 # Login Events
@@ -151,9 +157,5 @@ def WriteToJson(path, data):
     with open(path, "w") as file:
         json.dump(data, file, indent=4)
 
-def ReadFromJson(path):
-    with open(path, "r") as file:
-        return json.load(file)
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=9003)
