@@ -60,17 +60,4 @@
         </div>
     </div>
     <h1 class="WIP">! WORK IN PROGRESS !</h1>
-    <script src="/src/scripts/UpdateRefresh.js"></script>
-    <script>
-        const LoginLink = document.getElementById("LoginID");
-        const profileURL = "{{url_for('userprofile')}}";
-
-        function CheckLoginStatus() {
-            if (localStorage.getItem("loginID") != "") {
-                LoginLink.textContent = "Profile";
-                LoginLink.href = profileURL;
-            }
-        }
-        CheckLoginStatus()
-    </script>
 </body>
