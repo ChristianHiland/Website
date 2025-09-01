@@ -1,16 +1,4 @@
 {
     "messages": [
-        {
-            "content": "Hey The Lobby Now Updates Right! Everyone Welcome!",
-            "sender": "Server",
-            "datetime": "idkyet",
-            "color": "#800080"
-        },
-        {
-            "content": "Test2",
-            "sender": "LeeLunbin",
-            "color": "#1d4ed8",
-            "datetime": "2025-08-31 19:59:42"
-        }
     ]
 }
