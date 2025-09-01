@@ -1,5 +1,6 @@
 from time import sleep
 from os import system
+import os
 import sys
 
 args = sys.argv
@@ -26,7 +27,7 @@ def StartServices():
 def UpdateHosts():
     print("Updating Web Hosts...")
     sleep(2)
-    system("rm -r Webite")
+    system("rm -fr Website")
     system("git clone https://github.com/ChristianHiland/Website.git")
 
 def UpdatingServices():
@@ -34,15 +35,16 @@ def UpdatingServices():
     sleep(2)
     system("sudo nginx -t")
 
-if args[1] == "full":
-    # Shutdown Services.
-    ShutdownServices()
-    # Updating System
-    UpdateSystem()
-    # Update Hosts.
-    UpdateHosts()
-    # Starting Services back up.
-    StartServices()
+if len(args) >= 1:
+    if args[1] == "full":
+        # Shutdown Services.
+        ShutdownServices()
+        # Updating System
+        UpdateSystem()
+        # Update Hosts.
+        UpdateHosts()
+        # Starting Services back up.
+        StartServices()
 else:
     # Shutdown Services
     ShutdownServices()
