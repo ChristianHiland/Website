@@ -1,3 +1,4 @@
+#!python3
 from time import sleep
 from os import system
 import os
