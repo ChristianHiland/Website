@@ -1,17 +1,29 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from datetime import datetime
+from flask_cors import CORS
 import json
 
-app = Flask(__name__, template_folder='templates', static_folder='src', static_url_path='/src')
+# Safely Importing modules
+try:
+    from helpers import UpdateJSON, ReadJSON
+except ImportError as e:
+    print(f"Failed to import modules\n Error: {e}")
 
+app = Flask(__name__, template_folder='templates', static_folder='src', static_url_path='/src')
+# Enable CORS to allow your HTML file to fetch data from this server
+CORS(app)
 
 # Server Config
 ServerConfig = None
 with open("config.json", "r") as config:
     ServerConfig = json.load(config)
 
+MESSAGES_FILE = ServerConfig["Paths"]["Data"]["Lobby"]
+
 # Runtime Vars
 people_login = []
 lobby_messages = {}             # Format: "index": {"content": "hello world!", "sender": "LeeLunbin", "DateTime": "2025-08-28 19:37:36"}
+
 
 # Default 'Home' Page
 @app.route('/')
@@ -33,22 +45,31 @@ def lobby():
 def profiles():
     return render_template('profiles.html')
 
+# About Page
 @app.route('/about')
 def about():
     return render_template('about.html')
 
+# Projects Page
 @app.route('/projects')
 def projects():
     return render_template('projects.html')
 
+# Links Page
 @app.route('/links')
 def links():
     return render_template('links.html')
+
+# Messages Debug Page
+@app.route('/messages_loader')
+def messages_loader():
+    return render_template('messageLoader.html')
 
 #
 # Login Events
 #
 
+# This is ran when a user logins in. 
 @app.route('/login_request', methods=['POST',"GET"])
 def login_request():
     if request.method == "POST":
@@ -66,29 +87,34 @@ def login_request():
 # Lobby Events
 #
 
-def WriteMessage(content, sender, data):
-    with open("src/data/lobby.json", "w") as file:
-        data["messages"][f"{sender}{len(data["messages"]) + 1}"] = {"content": content, "sender": sender, "datetime": "idkyet"}
-        json.dump(data, file, indent=4)
-
+# This is ran when a user sends a message to the Lobby Chat.
+# Format JSON: {"Content": "Blah Blah", "Sender": "LeeLunbin", "Color": "#1d4ed8"}
 @app.route('/lobby_send', methods=['POST'])
 def lobby_send():
-    data = request.get_json()
-    message = data.get("message")
-    sender = data.get("sender")
-    # Add Content to lobby list
-    data2 = None
-    with open("src/data/lobby.json", "r") as file:
-        data2 = json.load(file)
+    """API endpoint to add a new message."""
+    # 1. Get the new message data sent from the JavaScript client
+    new_message = request.get_json()
 
-    WriteMessage(message, sender, data2)
-    return jsonify({"Return": "Ok"})
+    # 2. Basic validation
+    #if not new_message or 'content' not in new_message or 'sender' not in new_message:
+    #    return jsonify({'status': 'error', 'message': 'Invalid message format'}), 400
 
+    # Get Data from request.
+    content = new_message.get("content")
+    sender = new_message.get("sender")
+    newData = {"content": content, "sender": sender, "color": "#1d4ed8", "datetime": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+
+    # Using a helper function: Update the Lobby.json file
+    UpdateJSON(ServerConfig["Paths"]["Data"]["Lobby"], newData)
+    
+    # 7. Send a success response back to the client
+    return jsonify({'response': 'ok', 'message': 'Message saved!'})
+
+# This is ran when a user fetches the current messages in a lobby.
 @app.route('/lobby_chatlog')
 def lobby_chatlog():
-    with open("src/data/lobby.json", "r") as file:
-        data = json.load(file)
-        return jsonify(data)
+    data = ReadJSON(ServerConfig["Paths"]["Data"]["Lobby"])
+    return jsonify(data)
 
 #
 # Profiles Events
@@ -109,8 +135,10 @@ def profile_create():
         else:
             return jsonify({"Request": "Taken", "Data": data["Users"][name]})
 
-@app.route('/profile_request/<username>', methods=['GET'])
-def profile_request(username):
+@app.route('/profile_request', methods=['POST'])
+def profile_request():
+    data = request.get_json()
+    username = data.get("Username")
     with open("src/data/users.json", "r") as file:
         data = json.load(file)
         if username in data["Users"]:

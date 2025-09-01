@@ -1,29 +1,5 @@
 <html lang="en">
 <head>
-    <style>
-        /* Text */
-        .BarTitle {color: white; text-align: center;}
-        .barmenu {background-color: gray;}
-        .BodyTitle {color: white;}
-        .BodyText {color: white; font-size: 18px; margin-left: 10px; margin-right: 10px;}
-        
-        /* Divs */
-        .BodyDiv {background-color: gray; align-items: center; text-align: center; display: flex; margin-top: 15px; justify-content: center;}
-        .BodyDiv1 {background-color: #1b385d; width: 20%; margin-top: 1%; margin-bottom: 1%; width: fit-content;}
-        .BodyDiv2 {background-color: #1b385d; width: 20%; margin-left: .5%; margin-top: 1%; margin-bottom: 1%; width: 60%; justify-content: center; align-items: center;}
-
-        /* Bar Nav */
-        .BarNavul {position: -webkit-sticky; position: sticky; list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;}
-        .BarNavli {float: left;}
-        .BarNavli a {display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
-        .BarNavli a:hover {background-color: #111;}
-        /* Active/Current Page */
-        .active {background-color: darkblue;}
-        /* Extras */
-        .centered {text-align: center; align-content: center; align-self: center; padding-top: 10px;}
-        .white-text {color: white; padding-left: 20px; padding-right: 20px;}
-        .messagecontainer {align-self: center; align-items: center; text-align: center;}
-    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -33,50 +9,29 @@
             font-family: 'Inter', sans-serif;
         }
     </style>
-    <title>Login -- lunproject.net</title>
+    <title>Document</title>
 </head>
 <body>
-    <!-- Bar Menu -->
-    <div class="barmenu">
-        <ul class="BarNavul">
-            <h1 class="BarTitle">lunprojects.net</h1>
-            <hr class="DivHR">
-            <li class="BarNavli"><a href="{{url_for('index')}}">Home</a></li>
-            <li class="BarNavli"><a href="{{url_for('projects')}}">Projects</a></li>
-            <li class="BarNavli" style="float:right"><a href="#">Howling Haven</a></li>
-            <li class="BarNavli"><a href="{{url_for('links')}}">Links</a></li>
-            <li class="BarNavli"><a id="LoginID" href="{{url_for('login')}}">Login</a></li>
-            <li class="BarNavli"><a href="{{url_for('profiles')}}">Profiles</a></li>
-            <li class="BarNavli"><a href="{{url_for('lobby')}}" class="active">Lobby</a></li>
-            <li class="BarNavli"><a href="{{url_for('about')}}">About</a></li>
-        </ul>    
-    </div>
+    <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg w-full max-w-2xl">
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Live Chat Feed</h2>
+        <p class="text-center text-gray-600 mb-6">Click the button to dynamically load messages from the server.</p>
+        
+        <!-- Button to trigger the display -->
+        <div class="text-center mb-6">
+            <button id="loadMessagesBtn" class="px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-transform transform hover:scale-105">
+                Load Messages from Server
+            </button>
+        </div>
 
-    <!-- Main Div -->
-    <div class="BodyDiv">
-        <div class="BodyDiv2">
-            <h2 class="white-text">Welcome to the Lobby!</h2>
-            <input type="text" id="message" name="message" placeholder="Hello!" style="padding-top: 10px; width: 90%" required>
-            
-            <!-- Submit Button -->
-            <div class="mt-6" style="padding-top: 8px;">
-                <button type="submit" onclick="Lobby_send()" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Send</button>
-                <button type="submit" id="loadMessagesBtn" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update</button>
-            </div>
+        <!-- The container where messages will be dynamically added -->
+        <div id="message-container" class="h-80 bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-4 overflow-y-auto">
+            <!-- Messages will be injected here by JavaScript -->
+            <p class="text-gray-400 text-center">Messages will appear here...</p>
         </div>
     </div>
-    <!-- The container where messages will be dynamically added -->
-    <div id="message-container" class="h-80 bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-4 overflow-y-auto">
-        <!-- Messages will be injected here by JavaScript -->
-        <p class="text-gray-400 text-center">Messages will appear here...</p>
-    </div>
-
-    <script src="/src/scripts/lobby.js" async></script>
 
     <script>
         // Get references to the HTML elements
-        const message_textfield = document.getElementById("message");
-        const dataOutputTextArea = document.getElementById("message-area");
         const loadMessagesBtn = document.getElementById('loadMessagesBtn');
         const messageContainer = document.getElementById('message-container');
 
@@ -151,24 +106,6 @@
                     messageContainer.innerHTML = `<p class="text-red-500 text-center">Could not connect to the server. Make sure it's running. <br><br> ${error.message}</p>`;
                 });
         }
-
-        function Lobby_send() {
-            const Data = {
-                sender: localStorage.getItem("username"),
-                content: message_textfield.value
-            }
-
-            fetch('/lobby_send', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(Data)
-            })
-            .then(response => {
-                if (!response.ok) {throw new Error('Network response was not ok');}
-            })
-        }
     </script>
     
     <!-- Simple fade-in animation using CSS -->
@@ -181,6 +118,5 @@
             animation: fade-in 0.5s ease-out forwards;
         }
     </style>
-
 </body>
 </html>
