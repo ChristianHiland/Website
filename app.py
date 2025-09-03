@@ -5,7 +5,7 @@ import json
 
 # Safely Importing modules
 try:
-    from helpers import UpdateJSON, ReadJSON
+    from helpers import UpdateJSON, ReadJSON, GetStatus
 except ImportError as e:
     print(f"Failed to import modules\n Error: {e}")
 
@@ -181,10 +181,10 @@ def profile_request():
 def checkStatus():
     Status = {
         "VPN": {
-            "Status": "Online"
+            "Status": GetStatus("wg-quick@wg0.service")
         },
         "Website": {
-            "Status": "Online"
+            "Status": GetStatus("lunprojects")
         }
     }
     return jsonify(Status)
