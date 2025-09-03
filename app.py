@@ -177,7 +177,7 @@ def profile_request():
 # API Requests
 #
 
-@app.route('/checkStatus', methods=['POST'])
+@app.route('/checkStatus', methods=['POST', 'GET'])
 def checkStatus():
     Status = {
         "VPN": {
