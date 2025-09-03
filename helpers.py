@@ -30,7 +30,7 @@ def GetStatus(target):
         # Use --quiet to suppress output and just get the exit code.
         # check=False prevents CalledProcessError from being raised on non-zero exit codes.
         result = subprocess.run(
-            ['systemctl', 'is-active', '--quiet', target],
+            ['sudo', 'systemctl', 'is-active', '--quiet', target],
             check=False 
         )
 
@@ -41,7 +41,7 @@ def GetStatus(target):
             # To be more specific, we can check if the service exists at all.
             # 'systemctl status' returns 4 if the unit is not found.
             existence_check = subprocess.run(
-                ['systemctl', 'status', target],
+                ['sudo', 'systemctl', 'status', target],
                 capture_output=False, # We don't need to see this output
                 check=False
             )
