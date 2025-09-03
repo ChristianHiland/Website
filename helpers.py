@@ -35,14 +35,14 @@ def GetStatus(target):
         )
 
         # An exit code of 0 means the service is active (online).
-        if result.stdout == "active":
+        if result.returncode == 0:
             return "Online"
         else:
             # To be more specific, we can check if the service exists at all.
             # 'systemctl status' returns 4 if the unit is not found.
             existence_check = subprocess.run(
                 ['systemctl', 'status', target],
-                capture_output=True, # We don't need to see this output
+                capture_output=False, # We don't need to see this output
                 check=False
             )
             if existence_check.returncode == 4:
