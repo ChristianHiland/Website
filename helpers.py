@@ -35,7 +35,7 @@ def GetStatus(target):
         )
 
         # An exit code of 0 means the service is active (online).
-        if result.returncode == 0:
+        if result.stdout == "active":
             return "Online"
         else:
             # To be more specific, we can check if the service exists at all.
