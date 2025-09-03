@@ -18,12 +18,30 @@ ServerConfig = None
 with open("config.json", "r") as config:
     ServerConfig = json.load(config)
 
+# Quick Vars
 MESSAGES_FILE = ServerConfig["Paths"]["Data"]["Lobby"]
+USERS_FILE = ServerConfig["Paths"]["Data"]["Users"]
 
 # Runtime Vars
 people_login = []
 lobby_messages = {}             # Format: "index": {"content": "hello world!", "sender": "LeeLunbin", "DateTime": "2025-08-28 19:37:36"}
+user_data = {
+    "Users": {
+        "LeeLunbin": {
+            "Profile": {
+                "Display": "Lee Lunbin",
+                "Tags": [
+                    "Dev",
+                    "Web Dev",
+                    "Solo Dev"
+                ]
+            }
+        }
+    }
+}
 
+with open(USERS_FILE, "r") as file:
+    user_data = json.load(file)
 
 # Default 'Home' Page
 @app.route('/')
@@ -132,15 +150,17 @@ def profile_create():
     # Get Name, Tags
     name = data.get("Username")
     tags = data.get("Tags")
-    with open(ServerConfig["Paths"]["Data"]["Users"], "r") as file:
-        data = json.load(file)
-        if name not in data["Users"]:
-            data["Users"][name] = {"Profile": {"Display": name, "Tags": tags}}
-            WriteToJson(ServerConfig["Paths"]["Data"]["Users"], data)
-            return jsonify({"Request": "Ok"})
-        else:
-            return jsonify({"Request": "Taken", "Data": data["Users"][name]})
+    print(f"Creating Profile for: {name}")
 
+    # Update Data
+    if name not in user_data["Users"]:
+        user_data["Users"][name] = {"Display": name, "Tags": tags}
+    
+    # Writing to JSON.
+    with open(USERS_FILE, "w") as file:
+        json.dump(user_data, file, indent=4)
+
+    return jsonify({"Request": "Ok"})
 @app.route('/profile_request', methods=['POST'])
 def profile_request():
     data = request.get_json()

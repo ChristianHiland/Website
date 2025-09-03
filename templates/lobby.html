@@ -163,6 +163,8 @@
                 if (!response.ok) {throw new Error('Network response was not ok');}
             })
         }
+
+        setInterval(loadAndDisplayMessagesFromServer, 9000)
     </script>
     
     <!-- Simple fade-in animation using CSS -->
