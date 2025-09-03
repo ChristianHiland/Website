@@ -179,15 +179,9 @@ def profile_request():
 
 @app.route('/checkStatus', methods=['POST', 'GET'])
 def checkStatus():
-    Status = {
-        "VPN": {
-            "Status": GetStatus("wg-quick@wg0.service")
-        },
-        "Website": {
-            "Status": GetStatus("lunprojects")
-        }
-    }
-    return jsonify(Status)
+    with open("/tmp/service_status.json", "r") as f:
+        data = json.load(f)
+        return jsonify(data)
 
 # Helpers
 def WriteToJson(path, data):
