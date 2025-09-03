@@ -172,6 +172,23 @@ def profile_request():
         else:
             return jsonify({"Request": "Failed"})
 
+
+#
+# API Requests
+#
+
+@app.route('/checkStatus', methods=['POST'])
+def checkStatus():
+    Status = {
+        "VPN": {
+            "Status": "Online"
+        },
+        "Website": {
+            "Status": "Online"
+        }
+    }
+    return jsonify(Status)
+
 # Helpers
 def WriteToJson(path, data):
     with open(path, "w") as file:
