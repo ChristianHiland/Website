@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="preload" href="/src/styles/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preload" href="/src/styles/base.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <title>Profile -- lunproject.net</title>
+    <title>SocialVR</title>
 </head>
 <body>
     <!-- Bar Menu -->
@@ -14,21 +15,26 @@
             <hr class="DivHR">
             <li class="BarNavli"><a href="{{url_for('index')}}">Home</a></li>
             <li class="BarNavli"><a href="{{url_for('projects')}}">Projects</a></li>
-            <li class="BarNavli" style="float:right"><a href="{{url_for('socialvr')}}">SocialVR</a></li>
+            <li class="BarNavli" style="float:right"><a href="{{url_for('socialvr')}}" class="active">SocialVR</a></li>
             <li class="BarNavli" style="float:right"><a href="{{url_for('howlinghaven')}}">Howling Haven</a></li>
             <li class="BarNavli"><a href="{{url_for('links')}}">Links</a></li>
             <li class="BarNavli"><a id="LoginID" href="{{url_for('login')}}">Login</a></li>
-            <li class="BarNavli"><a href="{{url_for('profiles')}}" class="active">Profiles</a></li>
+            <li class="BarNavli"><a href="{{url_for('profiles')}}">Profiles</a></li>
             <li class="BarNavli"><a href="{{url_for('lobby')}}">Lobby</a></li>
             <li class="BarNavli"><a href="{{url_for('about')}}">About</a></li>
-        </ul>   
+        </ul>  
     </div>
-
-    <!-- Main Div -->
-    <div class="BodyDiv">
-        <div class="BodyDiv2">
-            <h2 class="white-text">Work In Progress!</h2>
-            <h2 class="white-text">This Webpage is soon to come!</h2>
+    <!-- Main Body Div -->
+    <div class="BodyDivOnly">
+        <div class="BodyDiv1Only">
+            <h1 class="BodyTitle">SocialVR</h1>
+            <h2 class="BodyText">SocialVR is a social game that I'm currently working on. It's like VRChat in terms of how it loads Unity scenes, and how you can use the SocialVR SDK to upload your own worlds.</h2>
+        </div>
+        <hr class="DivHR2">
+        <div class="BodyShowCase">
+            <div class="projects">
+                <h1 class="WhiteText">A Download link will be added here once I make a build of the project.</h1>
+            </div>
         </div>
     </div>
 </body>

@@ -83,6 +83,10 @@ def links():
 def howlinghaven():
     return render_template('howlinghaven.html')
 
+@app.route('/socialvr')
+def socialvr():
+    return render_template('socialvr.html')
+
 # Messages Debug Page
 @app.route('/messages_loader')
 def messages_loader():
