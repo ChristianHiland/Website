@@ -3,6 +3,7 @@
 .barmenu {background-color: gray;}
 .BodyTitle {color: white;}
 .BodyText {color: white; font-size: 18px; margin-left: 10px; margin-right: 10px;}
+.BodyLink {font-size: 24px; color: white;}
         
 /* Divs */
 .BodyDiv {background-color: gray; align-items: center; text-align: center; display: flex; margin-top: 15px; justify-content: center;}
